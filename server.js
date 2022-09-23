@@ -32,7 +32,7 @@ const authorResolve = () => authors;
 const findAuthor = book =>
   authors.find(author =>
     author.id === book.authorId);
-const findBook = author =>
+const findBooks = author =>
   books.filter(book =>
     author.id === book.authorId);
 
@@ -48,7 +48,7 @@ const AuthorType = new GraphQLObjectType({
     },
     books: {
       type: new GraphQLList(BookType),
-      resolve: findBook
+      resolve: findBooks
     },
   })
 });
@@ -77,6 +77,16 @@ const RootQueryType = new GraphQLObjectType({
   name: 'Query',
   description: 'Root Query',
   fields: () => ({
+    book: {
+      type: BookType,
+      description: 'Single book',
+      args: {
+        id: {
+          type: GraphQLInt
+        }
+      },
+      resolve: (parent, args) => books.find(book => book.id === args.id)
+    },
     books: {
       type: new GraphQLList(BookType),
       description: 'List of books',
