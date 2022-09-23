@@ -27,15 +27,26 @@ const books = [
   { id: 8, name: 'Beyond the Shadows', authorId: 3 }
 ];
 
-const resolve = () => books;
+const bookResolve = () => books;
+const authorResolve = () => authors;
 
 const BookType = new GraphQLObjectType({
   name: 'Book',
   description: 'This represents a book written by an author',
   fields: () => ({
-    id: { type: GraphQLNonNull(GraphQLInt) },
-    name: { type: GraphQLNonNull(GraphQLString) },
-    authorId: { type: GraphQLNonNull(GraphQLInt) }
+    id: {
+      type: GraphQLNonNull(GraphQLInt)
+    },
+    name: {
+      type: GraphQLNonNull(GraphQLString)
+    },
+    authorId: {
+      type: GraphQLNonNull(GraphQLInt)
+    },
+    author: {
+      type: AuthorType,
+      resolve: authorResolve
+    }
   })
 });
 
@@ -46,12 +57,14 @@ const RootQueryType = new GraphQLObjectType({
     books: {
       type: new GraphQLList(BookType),
       description: 'List of books',
-      resolve
+      resolve: bookResolve
     }
   })
 });
 
-const schema = new GraphQLSchema({ RootQueryType });
+const schema = new GraphQLSchema({
+  query: RootQueryType
+});
 
 app.use('/graphql', expressGraphQL({
   schema,
