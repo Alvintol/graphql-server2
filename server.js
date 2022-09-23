@@ -3,7 +3,8 @@ const expressGraphQL = require('express-graphql').graphqlHTTP
 const {
   GraphQLSchema,
   GraphQLObjectType,
-  GraphQLString
+  GraphQLString,
+  GraphQLList
 } = require('graphql');
 const app = express();
 
