@@ -1,6 +1,12 @@
 const express = require('express');
+const expressGraphQL = require('express-graphql').graphqlHTTP
+const {
+  GraphQLSchema,
+  GraphQLObjectType
+} = require('graphql')
 const app = express();
-const expressGraphQL = require('express-graphql');
+
+
 
 app.use('/graphql', expressGraphQL({
   graphiql: true
