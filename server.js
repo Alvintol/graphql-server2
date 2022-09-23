@@ -92,8 +92,6 @@ const bookFields = () => ({
   }
 });
 
-
-
 const rootQueryFields = () => ({
   book: {
     type: BookType,
@@ -140,6 +138,16 @@ const mutationQueryFields = () => ({
       }
     },
     resolve: addBookResolve
+  },
+  addAuthor: {
+    type: AuthorType,
+    description: 'Add an Author',
+    args: {
+      name: {
+        type: GraphQLNonNull(GraphQLString)
+      }
+    },
+    resolve: addAuthorResolve
   }
 })
 
