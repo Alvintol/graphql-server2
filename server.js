@@ -9,6 +9,10 @@ const {
   GraphQLNonNull
 } = require('graphql');
 const { books, authors } = require('./data/data');
+const { bookResolve,
+  addBookResolve,
+  authorResolve,
+  addAuthorResolve } = require('./resolvers/resolvers');
 const app = express();
 
 const findOneBook = (parent, args) =>
