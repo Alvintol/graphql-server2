@@ -24,21 +24,23 @@ const books = [
 	{ id: 8, name: 'Beyond the Shadows', authorId: 3 }
 ];
 
-const resolve = () => 'Hello World';
+const resolve = () => books;
 
 const fields = () => ({
-  message: {
-    type: GraphQLString,
+  books: {
+    type: BookType,
+    description: 'List of books',
     resolve
   }
 });
 
-const query = new GraphQLObjectType({
-  name: 'HelloWorld',
+const RootQueryType = new GraphQLObjectType({
+  name: 'Query',
+  description: 'Root Query',
   fields
 });
 
-const schema = new GraphQLSchema({ query });
+const schema = new GraphQLSchema({ RootQueryType });
 
 app.use('/graphql', expressGraphQL({
   schema,
