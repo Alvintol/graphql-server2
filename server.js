@@ -36,6 +36,7 @@ const findOneBook = (parent, args) =>
 const findBooks = author =>
   books.filter(book =>
     author.id === book.authorId);
+
 const findOneAuthor = (parent, args) =>
   authors.find(author =>
     author.id === args.id);
@@ -43,41 +44,45 @@ const findAuthors = book =>
   authors.find(author =>
     author.id === book.authorId);
 
+const authorFields = () => ({
+  id: {
+    type: GraphQLNonNull(GraphQLInt)
+  },
+  name: {
+    type: GraphQLNonNull(GraphQLString)
+  },
+  books: {
+    type: new GraphQLList(BookType),
+    resolve: findBooks
+  },
+});
+
+const bookFields = () => ({
+  id: {
+    type: GraphQLNonNull(GraphQLInt)
+  },
+  name: {
+    type: GraphQLNonNull(GraphQLString)
+  },
+  authorId: {
+    type: GraphQLNonNull(GraphQLInt)
+  },
+  author: {
+    type: AuthorType,
+    resolve: findAuthors
+  }
+});
+
 const AuthorType = new GraphQLObjectType({
   name: 'Author',
   description: 'This represents an author of a book',
-  fields: () => ({
-    id: {
-      type: GraphQLNonNull(GraphQLInt)
-    },
-    name: {
-      type: GraphQLNonNull(GraphQLString)
-    },
-    books: {
-      type: new GraphQLList(BookType),
-      resolve: findBooks
-    },
-  })
+  fields: authorFields
 });
 
 const BookType = new GraphQLObjectType({
   name: 'Book',
   description: 'This represents a book written by an author',
-  fields: () => ({
-    id: {
-      type: GraphQLNonNull(GraphQLInt)
-    },
-    name: {
-      type: GraphQLNonNull(GraphQLString)
-    },
-    authorId: {
-      type: GraphQLNonNull(GraphQLInt)
-    },
-    author: {
-      type: AuthorType,
-      resolve: findAuthors
-    }
-  })
+  fields: bookFields
 });
 
 const RootQueryType = new GraphQLObjectType({
