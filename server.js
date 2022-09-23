@@ -8,8 +8,8 @@ const {
   GraphQLInt,
   GraphQLNonNull
 } = require('graphql');
+const { books, authors } = require('./data/data');
 const app = express();
-
 
 const bookResolve = () => books;
 const authorResolve = () => authors;
