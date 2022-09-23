@@ -30,6 +30,16 @@ const books = [
 const bookResolve = () => books;
 const authorResolve = () => authors;
 
+const addBookResolve = (parent, args) => {
+  const book = {
+    id: books.length + 1,
+    name: args.name,
+    authorId: args.authorId
+  };
+  books.push(book)
+  return book
+}
+
 const findOneBook = (parent, args) =>
   books.find(book =>
     book.id === args.id)
@@ -120,15 +130,7 @@ const mutationQueryFields = () => ({
         type: GraphQLNonNull(GraphQLInt)
       }
     },
-    resolve: (parent, args) => {
-      const book = {
-        id: books.length + 1,
-        name: args.name,
-        authorId: args.authorId
-      };
-      books.push(book)
-      return book
-    }
+    resolve: addBookResolve
   }
 })
 
