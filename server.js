@@ -8,8 +8,13 @@ const {
   GraphQLInt,
   GraphQLNonNull
 } = require('graphql');
-const { books, authors } = require('./data/data');
-const { bookResolve,
+const {
+  findOneBook,
+  findBooks,
+  findOneAuthor,
+  findAuthors } = require('./helpers/helperFunc');
+const {
+  bookResolve,
   addBookResolve,
   authorResolve,
   addAuthorResolve } = require('./resolvers/resolvers');
