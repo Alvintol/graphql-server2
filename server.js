@@ -40,6 +40,15 @@ const addBookResolve = (parent, args) => {
   return book
 }
 
+const addAuthorResolve = (parent, args) => {
+  const author = {
+    id: authors.length + 1,
+    name: args.name,
+  };
+  authors.push(author)
+  return author
+}
+
 const findOneBook = (parent, args) =>
   books.find(book =>
     book.id === args.id)
