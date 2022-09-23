@@ -28,7 +28,9 @@ const books = [
 ];
 
 const bookResolve = () => books;
-const authorResolve = () => authors;
+const authorResolve = book =>
+  authors.find(author =>
+    author.id === book.authorId);
 
 const BookType = new GraphQLObjectType({
   name: 'Book',
