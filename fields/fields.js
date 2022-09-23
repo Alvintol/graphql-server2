@@ -1,4 +1,5 @@
 const { GraphQLNonNull, GraphQLList, GraphQLInt, GraphQLString } = require('graphql');
+const { BookType, AuthorType } = require('../types/types');
 const {
   findOneBook,
   findBooks,

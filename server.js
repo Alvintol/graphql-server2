@@ -1,6 +1,7 @@
 const express = require('express');
 const expressGraphQL = require('express-graphql').graphqlHTTP
 const { GraphQLSchema } = require('graphql');
+const { RootQueryType, RootMutationType } = require('./types/types');
 const app = express();
 
 
