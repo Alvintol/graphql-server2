@@ -73,6 +73,39 @@ const bookFields = () => ({
   }
 });
 
+const rootQueryFields = () => ({
+  book: {
+    type: BookType,
+    description: 'A Single book',
+    args: {
+      id: {
+        type: GraphQLInt
+      }
+    },
+    resolve: findOneBook
+  },
+  books: {
+    type: new GraphQLList(BookType),
+    description: 'List of Books',
+    resolve: bookResolve
+  },
+  author: {
+    type: AuthorType,
+    description: 'A Single Author',
+    args: {
+      id: {
+        type: GraphQLInt
+      }
+    },
+    resolve: findOneAuthor
+  },
+  authors: {
+    type: new GraphQLList(AuthorType),
+    description: 'List of Authors',
+    resolve: authorResolve
+  },
+});
+
 const AuthorType = new GraphQLObjectType({
   name: 'Author',
   description: 'This represents an author of a book',
@@ -88,38 +121,7 @@ const BookType = new GraphQLObjectType({
 const RootQueryType = new GraphQLObjectType({
   name: 'Query',
   description: 'Root Query',
-  fields: () => ({
-    book: {
-      type: BookType,
-      description: 'A Single book',
-      args: {
-        id: {
-          type: GraphQLInt
-        }
-      },
-      resolve: findOneBook
-    },
-    books: {
-      type: new GraphQLList(BookType),
-      description: 'List of Books',
-      resolve: bookResolve
-    },
-    author: {
-      type: AuthorType,
-      description: 'A Single Author',
-      args: {
-        id: {
-          type: GraphQLInt
-        }
-      },
-      resolve: findOneAuthor
-    },
-    authors: {
-      type: new GraphQLList(AuthorType),
-      description: 'List of Authors',
-      resolve: authorResolve
-    },
-  })
+  fields: rootQueryFields
 });
 
 const schema = new GraphQLSchema({
